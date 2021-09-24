@@ -11,6 +11,7 @@
 
 
 import openpyxl
+from openpyxl.styles import Font
 import os
 import pandas as pd
 import re
@@ -89,6 +90,7 @@ print (len(datos))
 # Titulos de las columnas
 for i in range(21):
     resultados_sheet.cell(row=1, column=i+1).value = nombre_columnas[i]
+    resultados_sheet.cell(row=1, column=i+1).font = Font(bold=True)
 
 
 # Ingresar los datos al archivo resultados.xlsx
