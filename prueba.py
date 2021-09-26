@@ -46,7 +46,7 @@ nombre_columnas = ["FE", "RC", "CD", "RAZON SOCIAL/NOMBRES Y APELLIDOS", "NIT", 
 
 
 
-# Recopilar "EXTERNEL_REFERENCE" del reporte de mercado pato en un array.
+# Recopilar "EXTERNEL_REFERENCE" del reporte de mercado pago en un array.
 externalReference = []
 
 for i in range(len(mercado_libre_sheet)):
@@ -79,17 +79,11 @@ for i in range(len(datos)):
     print(datos[i][8])
 print (len(datos))
             
-            
-
-    # if externalReference.index(eventtia_sheet['Deposits Summary'][i].split()[4]):
-    #     lugar_en_nombres = externalReference.index(eventtia_sheet['Deposits Summary'][i].split()[4])
-    #     datos.append([lugar_en_nombres, eventtia_drive['First Name'][i], eventtia_drive['Last Name'][i], eventtia_drive['CC'][i]])
-    #     print(datos[1][1])
-
 
 # Titulos de las columnas
 for i in range(21):
     resultados_sheet.cell(row=1, column=i+1).value = nombre_columnas[i]
+    # Formato bold al título de las columnas.
     resultados_sheet.cell(row=1, column=i+1).font = Font(bold=True)
 
 
@@ -109,8 +103,8 @@ for i in range(len(datos)):
     resultados_sheet.cell(row=i+2, column=17).value = datos[i][9]*0.84034
     resultados_sheet.cell(row=i+2, column=18).value = datos[i][9]-(datos[i][9]*0.84034)
     resultados_sheet.cell(row=i+2, column=19).value = datos[i][9]
-
-
+    resultados_sheet.cell(row=i+2, column=20).value = modificaciones[4]
+    resultados_sheet.cell(row=i+2, column=21).value = modificaciones[5]
 
 
 
