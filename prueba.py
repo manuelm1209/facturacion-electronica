@@ -20,7 +20,13 @@ import re
 # Especificar que los archivos están en la misma carpeta que el programa de python.
 # os.chdir("./")
 
-
+def telephone_format(tel):
+    telephoneNumRegex = re.compile(r'(\d\d)(\d{10})')
+    mo = telephoneNumRegex.search(str(tel))
+    if mo.group(1) == "57":
+        return mo.group(2)
+    else:
+        return tel
 
 # archivo con información de mercado pago.
 mercado_pago_drive = "Informe Mercado Pago.xlsx"
@@ -41,7 +47,7 @@ eventtia_sheet = pd.read_excel(eventtia_drive, sheet_name="Sheet1")
 
 
 # Nombre Columnas
-nombre_columnas = ["FE", "RC", "CD", "RAZON SOCIAL/NOMBRES Y APELLIDOS", "NIT", "DIV", "FECHA REGISTRO", "CIUDAD", "DOMICILIO PRINCIPAL", "CONTACTO DE FACTURACIÓN", "TELEFONO", "E-MAIL DE FACTURACIÓN", "CENTRO DE COSTOS", "PRODUCTO SIIGO", "DESCRIPCIÓN PARA FACTURACIÓN", "FE", "SUBTOTAL", "IVA", "VALOR TOTAL", "No. FACTURAS", "RESPONSABLE ENDEAVOR"]
+nombre_columnas = ["FE", "RC", "CD", "RAZON SOCIAL/NOMBRES Y APELLIDOS", "NIT", "DIV", "FECHA REGISTRO", "CIUDAD", "DOMICILIO PRINCIPAL", "CONTACTO DE FACTURACIÓN", "TELEFONO", "E-MAIL DE FACTURACIÓN", "CENTRO DE COSTOS", "PRODUCTO SIIGO", "DESCRIPCIÓN PARA FACTURACIÓN", "FE", "SUBTOTAL", "IVA", "VALOR TOTAL", "No. FACTURAS", "RESPONSABLE ENDEAVOR", "", "", "","NIT ORIGINAL", "DOMICILIO ORIGINAL", "TELEFONO ORIGINAL"]
 
 
 
@@ -81,7 +87,7 @@ print (len(datos))
             
 
 # Titulos de las columnas
-for i in range(21):
+for i in range(len(nombre_columnas)):
     resultados_sheet.cell(row=1, column=i+1).value = nombre_columnas[i]
     # Formato bold al título de las columnas.
     resultados_sheet.cell(row=1, column=i+1).font = Font(bold=True)
@@ -95,7 +101,7 @@ for i in range(len(datos)):
     resultados_sheet.cell(row=i+2, column=8).value = str.upper(datos[i][5])
     resultados_sheet.cell(row=i+2, column=9).value = str.upper(datos[i][8])
     resultados_sheet.cell(row=i+2, column=10).value = str.upper(datos[i][0]) + " " + str.upper(datos[i][1])
-    resultados_sheet.cell(row=i+2, column=11).value = str(datos[i][4])
+    resultados_sheet.cell(row=i+2, column=11).value = str(telephone_format(datos[i][4]))
     resultados_sheet.cell(row=i+2, column=12).value = str(datos[i][3])
     resultados_sheet.cell(row=i+2, column=13).value = modificaciones[1]
     resultados_sheet.cell(row=i+2, column=14).value = modificaciones[2]
@@ -105,6 +111,12 @@ for i in range(len(datos)):
     resultados_sheet.cell(row=i+2, column=19).value = datos[i][9]
     resultados_sheet.cell(row=i+2, column=20).value = modificaciones[4]
     resultados_sheet.cell(row=i+2, column=21).value = modificaciones[5]
+    ### Valores
+    resultados_sheet.cell(row=i+2, column=27).value = str(datos[i][4])
+
+
+
+    
 
 
 
